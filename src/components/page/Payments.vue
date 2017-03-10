@@ -96,7 +96,7 @@ export default {
         case "local":
           name = "站内交易"
             break;
-          case "finance_pay":
+          case "finace_pay":
           name = "财务转账"
             break;
           case "refund":
