@@ -10,13 +10,48 @@ export default new Router({
             redirect: '/login'
         },
         {
-            path: '/readme',
+            path: '/dashboard',
             component: resolve => require(['../components/common/Home.vue'], resolve),
             children:[
                 {
                     path: '/',
-                    component: resolve => require(['../components/page/Readme.vue'], resolve)
+                    component: resolve => require(['../components/page/Dashboard.vue'], resolve)
                 },
+                {
+                    path: "/audit",
+                    component: resolve => require(["../components/page/Audit.vue"], resolve)
+                },
+                {
+                    path: "/users",
+                    component: resolve => require(["../components/page/Users.vue"], resolve)
+                },
+                {
+                    path: "/users/:id",
+                    component: resolve => require(["../components/page/UserDetail.vue"], resolve)
+                },
+
+                {
+                    path: "/orders",
+                    component: resolve => require(["../components/page/Orders.vue"], resolve)
+                },
+                {
+                    path: "/orders/:id",
+                    component: resolve => require(["../components/page/OrderDetail.vue"], resolve)
+                },
+
+                {
+                    path: "/payments",
+                    component: resolve => require(["../components/page/Payments.vue"], resolve)
+                },
+                {
+                    path: "/companies",
+                    component: resolve => require(["../components/page/Companies.vue"], resolve)
+                },
+                {
+                    path: "/companies/:id",
+                    component: resolve => require(["../components/page/CompanyDetail.vue"], resolve)
+                },
+
                 {
                     path: '/basetable',
                     component: resolve => require(['../components/page/BaseTable.vue'], resolve)

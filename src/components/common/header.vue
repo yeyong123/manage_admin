@@ -19,19 +19,20 @@
     export default {
         data() {
             return {
-                name: 'linxin'
+                name: 'Admin'
             }
         },
         computed:{
             username(){
-                let username = localStorage.getItem('ms_username');
-                return username ? username : this.name;
+                let username = JSON.parse(localStorage.getItem('user') || '[]');
+                return username.name ? username.name : this.name;
             }
         },
         methods:{
             handleCommand(command) {
                 if(command == 'loginout'){
-                    localStorage.removeItem('ms_username')
+                    localStorage.removeItem('5mutian_token');
+                    localStorage.removeItem('user');
                     this.$router.push('/login');
                 }
             }
