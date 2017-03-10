@@ -51,6 +51,26 @@ export default new Router({
                     path: "/companies/:id",
                     component: resolve => require(["../components/page/CompanyDetail.vue"], resolve)
                 },
+                {
+                    path: "/admins",
+                    component: resolve => require(["../components/page/Admin.vue"], resolve)
+                },
+                {
+                    path: "/mail",
+                    component: resolve => require(["../components/page/Mail.vue"], resolve)
+                },
+                {
+                    path: "/rate",
+                    component: resolve => require(["../components/page/Rate.vue"], resolve)
+                },
+                {
+                    path: "/profits",
+                    component: resolve => require(["../components/page/Profits.vue"], resolve)
+                },
+                {
+                    path: "/libs",
+                    component: resolve => require(["../components/page/Libs.vue"], resolve)
+                },
 
                 {
                     path: '/basetable',
