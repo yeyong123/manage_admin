@@ -5,17 +5,29 @@
         <el-breadcrumb-item>品牌商列表</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
-<el-table :data="companies" border style="width: 100%">
-  <el-table-column prop="name" label="名称" ></el-table-column>
-  <el-table-column prop="abbr" label="缩写"></el-table-column>
-  <el-table-column prop="tel" label="联系人"></el-table-column>
-  <el-table-column prop="address" label="地址"></el-table-column>
-  <el-table-column label="Logo">
+<el-table :data="profits" border style="width: 100%">
+  <el-table-column prop="user_id" label="用户" width="120" ></el-table-column>
+  <el-table-column label="利率" width="120">
     <template scope="scope">
-      <img :src="scope.row.logo" />
+      {{scope.row.rate / 100.0 }}
     </template>
     </el-table-column>
-            </el-table>
+  <el-table-column label="收益金额">
+    <template scope="scope">
+      {{scope.row.price / 100.00}}
+    </template>
+    </el-table-column>
+  <el-table-column label="余额">
+      <template scope="scope">
+        {{scope.row.balance / 100.0}}
+      </template>
+    </el-table-column>
+    <el-table-column label="时间" width="220">
+      <template scope="scope">
+      {{scope.row.created_at * 1000 | date("%Y-%m-%d %T")}}
+      </template>
+      </el-table-column>
+             </el-table>
  <div class="pagination">
                       <el-pagination
                          layout="prev, pager, next"
@@ -34,7 +46,7 @@
 export default {
   data() {
     return {
-      companies: [],
+      profits: [],
       page: {next_page: 1},
       q: ""
     }
@@ -44,8 +56,8 @@ export default {
   },
   methods: {
     fetchResource(page){
-      this.$http.get("companies.json?page=" + page).then(res => {
-        this.companies = res.body.klass;
+      this.$http.get("profits.json?page=" + page).then(res => {
+        this.profits = res.body.klass;
         this.page = res.body.page;
       }, res => {
         this.$message.error("加载失败")

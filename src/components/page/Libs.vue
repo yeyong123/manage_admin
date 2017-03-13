@@ -5,16 +5,13 @@
         <el-breadcrumb-item>品牌商列表</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
-<el-table :data="companies" border style="width: 100%">
+<el-table :data="libs" border style="width: 100%">
   <el-table-column prop="name" label="名称" ></el-table-column>
-  <el-table-column prop="abbr" label="缩写"></el-table-column>
-  <el-table-column prop="tel" label="联系人"></el-table-column>
-  <el-table-column prop="address" label="地址"></el-table-column>
-  <el-table-column label="Logo">
-    <template scope="scope">
-      <img :src="scope.row.logo" />
-    </template>
-    </el-table-column>
+  <el-table-column prop="specify" label="规格"></el-table-column>
+  <el-table-column prop="count" label="库存"></el-table-column>
+  <el-table-column prop="price" label="单价"></el-table-column>
+  <el-table-column prop="kind" label="类别"></el-table-column>
+  <el-table-column prop="remark" label="备注"></el-table-column>
             </el-table>
  <div class="pagination">
                       <el-pagination
@@ -34,7 +31,7 @@
 export default {
   data() {
     return {
-      companies: [],
+      libs: [],
       page: {next_page: 1},
       q: ""
     }
@@ -44,8 +41,8 @@ export default {
   },
   methods: {
     fetchResource(page){
-      this.$http.get("companies.json?page=" + page).then(res => {
-        this.companies = res.body.klass;
+      this.$http.get("material_libs.json?page=" + page).then(res => {
+        this.libs = res.body.klass;
         this.page = res.body.page;
       }, res => {
         this.$message.error("加载失败")

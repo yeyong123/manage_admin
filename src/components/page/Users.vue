@@ -6,8 +6,8 @@
         </el-breadcrumb>
     </div>
     <div class="user-header">
-    <el-button type="text" @click="addUser">创建用户</el-button>
-    <el-input class="search" icon="search" v-model="text_q" :on-icon-click="searchQuery"></el-input>
+      <el-button type="text" @click="addUser">创建用户</el-button>
+      <el-input class="search" icon="search" v-model="text_q" :on-icon-click="searchQuery"></el-input>
     </div>
     <el-table :data="users" border style="width: 100%">
       <el-table-column label="id" width="120">
@@ -81,12 +81,16 @@
                                       <el-form-item label="审核" prop="audit">
                                         <el-switch on-text="" off-text="" v-model="user.audit"></el-switch>
                                         </el-form-item>
+                                        <el-form-item label="头像">
+                                          <input type="file" @change="uploadImage"></input>
+                                          </el-form-item>
+
                                           </el-form>
                                           <span slot="footer" class="dialog-footer">
                                             <el-button type="primary" @click="userSubmit(type, edit_id)">提交</el-button>
-                              <el-button @click="dialogVisible=false">取消</el-button>
-                          </span>
-                            </el-dialog>
+                                            <el-button @click="dialogVisible=false">取消</el-button>
+                                          </span>
+                                          </el-dialog>
 
   </div>
 
@@ -117,7 +121,8 @@ export default {
         region: "",
         user_type: "",
         amount: 0
-      }
+      },
+      image: "",
     }
   },
   created() {
@@ -165,8 +170,11 @@ export default {
       let form = new FormData();
       for(var u in this.user) {
         if (this.user[u]) {
-        form.append(u, this.user[u]);
+          form.append(u, this.user[u]);
         }
+      }
+      if (self.image){
+        form.append("headimg", self.image);
       }
       if (type == "edit") {
         self.$http.put("users/"+ id + ".json", form).then(res => {
@@ -175,16 +183,23 @@ export default {
           self.$message.error("更新失败");
         })
       } else {
-      self.$http.post("users.json", form).then(res => {
+        self.$http.post("users.json", form).then(res => {
           self.users.unshift(res.body.klass);
           self.dialogVisible = false;
-      }, res => {
-        self.$message.error("创建失败");
-      })
+        }, res => {
+          self.$message.error("创建失败");
+        })
       }
     },
     searchQuery(e) {
       this.fetchResource(1)
+    },
+    uploadImage(e){
+      let files = e.target.files;
+      if(!files.length) {
+        return;
+      }
+      this.image = files[0];
     }
   }
 }
