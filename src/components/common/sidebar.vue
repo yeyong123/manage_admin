@@ -28,7 +28,7 @@
                     </el-submenu>
                     <el-submenu index="2">
 
-                      <template slot="title"><i class="el-icon-infomation"></i>收益设置</template>
+                      <template slot="title"><i class="el-icon-information"></i>收益设置</template>
                       <el-menu-item index="/rate">设置利率收益</el-menu-item>
                       <el-menu-item index="/profits">收益列表</el-menu-item>
                       </el-submenu>
