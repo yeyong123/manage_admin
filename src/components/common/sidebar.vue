@@ -21,14 +21,14 @@
                   </el-menu-item>
 
                   <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-menu"></i>附加工具</template>
+                    <template slot="title"><i class="el-icon-more"></i>附加工具</template>
                     <el-menu-item index="/mail">邮件/短信状态</el-menu-item>
                     <el-menu-item index="/libs">材料库</el-menu-item>
                     <el-menu-item index="/admins">管理员管理</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2">
 
-                      <template slot="title"><i class="el-icon-menu"></i>收益设置</template>
+                      <template slot="title"><i class="el-icon-infomation"></i>收益设置</template>
                       <el-menu-item index="/rate">设置利率收益</el-menu-item>
                       <el-menu-item index="/profits">收益列表</el-menu-item>
                       </el-submenu>
