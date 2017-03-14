@@ -9,8 +9,8 @@
     <div class="user-header">
       <el-input class="search" icon="search" v-model="q" :on-icon-click="searchQuery"></el-input>
     </div>
-    <el-table :data="orders" border style="width: 100%">
-      <el-table-column label="订单号" width="150">
+    <el-table :data="orders" border>
+      <el-table-column label="订单号">
         <template scope="scope">
           <span @click="rowClick(scope.row.id)">{{scope.row.serial_number}}</span>
         </template>
@@ -20,38 +20,97 @@
             {{scope.row.name}}
           </template>
           </el-table-column>
-            <el-table-column prop="tel" label="手机" width="170"></el-table-column>
-            <el-table-column prop="total" label="预估总价"></el-table-column>
-            <el-table-column prop="city" label="所在城市"></el-table-column>
-            <el-table-column prop="region" label="渠道"></el-table-column>
-            <el-table-column prop="service_info.name" label="接单人"></el-table-column>
-            <el-table-column prop="customer_service_info.name" label="测量人"></el-table-column>
-                  <el-table-column
-                            label="操作"
-                            width="120">
-                    <template scope="scope">
-                      <el-button @click="rowClick(scope.row.id)" type="text" size="small">查看</el-button>
-                    </template>
-                    </el-table-column>
-                    </el-table>
-                    <div class="pagination">
-                      <el-pagination
-                         layout="prev, pager, next"
-                         @current-change="handlePage"
-                         :current-page="page.current_page"
-                         :page-size=25
-                         :total="page.total_count">
-                        </el-pagination>
-                    </div>
+          <el-table-column prop="tel" label="手机" width="170"></el-table-column>
+          <el-table-column prop="total" label="预估总价"></el-table-column>
+          <el-table-column prop="city" label="所在城市"></el-table-column>
+          <el-table-column prop="region" label="渠道"></el-table-column>
+          <el-table-column prop="service_info.name" label="接单人"></el-table-column>
+          <el-table-column prop="customer_service_info.name" label="测量人"></el-table-column>
+          <el-table-column
+                                                             label="操作"
+                                                             width="160">
+            <template scope="scope">
+              <el-button @click="rowClick(scope.row.id)" type="text" size="small">查看</el-button>
+              <el-button @click="edit(scope.row.id)" type="text" size="small">编辑</el-button>
+            </template>
+            </el-table-column>
+            </el-table>
+            <div class="pagination">
+              <el-pagination
+                 layout="prev, pager, next"
+                 @current-change="handlePage"
+                 :current-page="page.current_page"
+                 :page-size=25
+                 :total="page.total_count">
+                </el-pagination>
+            </div>
+            <el-dialog title="订单处理" v-model="dialogVisible">
+              <el-form :inline="true" ref="order" :model="order" label-width="120px">
+                <el-form-item label="订单号">
+                  <el-input v-model="order.serial_number" disabled></el-input>
+                  </el-form-item>
+                  <el-form-item label="面积">
+                    <el-input v-model="order.square"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="省">
+                      <el-input v-model="order.province"></el-input>
+                      </el-form-item>
+                      <el-form-item label="市">
+                        <el-input v-model="order.city"></el-input>
+                        </el-form-item>
+                        <el-form-item label="区">
+                          <el-input v-model="order.area"></el-input>
+                          </el-form-item>
+                          <el-form-item label="街道">
+                            <el-input v-model="order.street"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系人">
+                              <el-input v-model="order.name"></el-input>
+                              </el-form-item>
+
+                              <el-form-item label="联系人手机">
+                                <el-input v-model="order.tel"></el-input>
+                                </el-form-item>
+                                <el-form-item label="品牌商">
+                                  <el-input v-model="order.company_id"></el-input>
+                                  </el-form-item>
+
+                                  <el-form-item label="测量人">
+                                    <el-input v-model="order.customer_service_id"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="安装人">
+                                      <el-input v-model="order.facilitator_id"></el-input>
+                                      </el-form-item>
+                                      <el-form-item label="状态">
+                                        <el-input v-model="order.workflow_state"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="测量费">
+                                          <el-input v-model="order.measure_amount"></el-input>
+                                          </el-form-item>
+
+                                          <el-form-item label="预估总价">
+                                            <el-input v-model="order.total"></el-input>
+                                            </el-form-item>
+                                            </el-form>
+                                            <span slot="footer" class="dialog-footer">
+                                              <el-button type="primary" @click="editSubmit(edit_id)">提交</el-button>
+                                              <el-button @click="dialogVisible=false">取消</el-button>
+                                            </span>
+
+                                            </el-dialog>
   </div>
 
-             </template>
+</template>
 <script>
 export default {
   data() {
     return {
       orders: [],
       page: {},
+      order: {},
+      edit_id: "",
+      dialogVisible: false,
       q: "",
     }
   },
@@ -68,7 +127,7 @@ export default {
         self.$message.error("加载失败");
       })
     },
-     handlePage(val){
+    handlePage(val){
       this.fetchResource(val);
     },
     rowClick(val){
@@ -76,8 +135,36 @@ export default {
     },
     searchQuery(){
       this.fetchResource(1)
+    },
+    edit(id){
+      let self = this;
+      self.orders.forEach(function(order, index){
+        if(id == order.id) {
+          self.order = order;
+          self.edit_id = id;
+          return;
+        }
+      });
+      self.dialogVisible = true;
+    },
+    editSubmit(id){
+      let form = new FormData();
+      let self = this;
+      for (var o in self.order) {
+        form.append(o, self.order[o]);
+      }
+      self.$http.put("orders/" + self.edit_id + ".json").then(res => {
+        let data = res.body;
+        if (data.code > 200) {
+          self.$message.error(data.msg);
+          return;
+        }
+        self.$message("修改完成");
+        self.dialogVisible = false;
+      }, res => {
+        self.$message.error("加载失败");
+      })
     }
-
   }
 }
 </script>
