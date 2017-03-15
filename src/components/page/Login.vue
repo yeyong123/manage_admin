@@ -1,6 +1,6 @@
 <template>
     <div class="login-wrap">
-        <div class="ms-title">后台管理系统</div>
+        <div class="ms-title">窗管家-后台管理系统</div>
         <div class="ms-login">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-form-item prop="username">
@@ -12,7 +12,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                 </div>
-                <p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码随便填。</p>
+                <p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码随便填。应该没有什么用</p>
             </el-form>
         </div>
     </div>
@@ -48,7 +48,9 @@
                         self.$router.push("/dashboard");
                     }
                 }, response => {
-                    alert("sss")
+                  self.$alert("啊哈!加载失败了, 等下再试试吧! Maybe可行,我也不确定 :)", "出了什么问题了...", {
+                    confirmButtonText: "确定"
+                  })
                 })
             }
         }
