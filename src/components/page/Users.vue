@@ -184,6 +184,11 @@ export default {
         })
       } else {
         self.$http.post("users.json", form).then(res => {
+          let data = res.body;
+          if (data.code > 200) {
+            self.$message.error(data.msg);
+            return;
+          }
           self.users.unshift(res.body.klass);
           self.dialogVisible = false;
         }, res => {
