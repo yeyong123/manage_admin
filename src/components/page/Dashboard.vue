@@ -126,8 +126,7 @@ export default {
     }),
     beforeMount() {
         let self = this;
-        self.$http.get("last_days_chart").then(res => {
-            console.log(res.body);
+        self.$http.get("last_days_chart.json").then(res => {
             self.line.xAxis.data = res.body.date;
             self.line.series = [{
                 name: "订单量",
@@ -137,8 +136,7 @@ export default {
         }, res => {
             self.$message.error("加载失败")
         });
-        self.$http.get("asynis_models").then(res => {
-            console.log(res.body);
+        self.$http.get("asynis_models.json").then(res => {
             self.bar.xAxis.data = ["用户数", "订单数", "品牌商", "服务商", "交易量"];
             self.bar.series = [{
                 name: "概况",
