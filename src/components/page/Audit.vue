@@ -112,6 +112,11 @@ export default {
         },
         confirm_appoint(id, index){
             this.$http.post("audits/" + id + "/audit.json?type=confirm", {}).then(res=>{
+              let data = res.body;
+              if (data.code > 200) {
+                this.$message.error(data.msg);
+                return;
+              }
                 this.audits.splice(index, 1);
                 this.$message("审核成功");
             }, res => {
