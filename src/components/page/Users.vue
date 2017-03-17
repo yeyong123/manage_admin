@@ -36,6 +36,12 @@
                     <span @click="handleCompany(scope.row.company_id)">{{scope.row.company_id}}</span>
                   </template>
                   </el-table-column>
+                  <el-table-column label="加入时间" width="220">
+                    <template scope="scope">
+                      {{scope.row.created_at * 1000 | date("%Y-%m-%d %T")}}
+                    </template>
+                    </el-table-column>
+
                   <el-table-column
                             label="操作"
                             width="180">

@@ -24,7 +24,12 @@
           <el-table-column prop="total" label="预估总价"></el-table-column>
           <el-table-column prop="city" label="所在城市"></el-table-column>
           <el-table-column prop="region" label="渠道"></el-table-column>
-          <el-table-column prop="service_info.name" label="接单人"></el-table-column>
+          <el-table-column prop="workflow_state" label="进度" :formatter="orderState"></el-table-column>
+          <el-table-column label="接单人">
+              <template scope="scope">
+                <a :link="{name: 'users', params: {id: scope.row.facilitator_id}}">{{scope.row.service_info.name}}</a>
+              </template>
+            </el-table-column>
           <el-table-column prop="customer_service_info.name" label="测量人"></el-table-column>
           <el-table-column
                                                              label="操作"
@@ -112,6 +117,11 @@ export default {
       edit_id: "",
       dialogVisible: false,
       q: "",
+      state: "",
+      company_id: "",
+      company_list: [],
+      start_time: "",
+      end_time: ""
     }
   },
   created() {
@@ -164,6 +174,32 @@ export default {
       }, res => {
         self.$message.error("加载失败");
       })
+    },
+    orderState(row, col){
+      let state = "";
+      switch(row.workflow_state){
+        case "installed":
+          state = "已安装";
+          break;
+        case "canceled":
+          state = "已取消";
+          break;
+        case "completed":
+          state = "已完成";
+          break;
+        case "measured":
+          state = "已测量";
+          break;
+        case "appointed_installation":
+          state = "预约安装";
+          break;
+        case "appointed_measurement":
+          state = "预约测量";
+          break;
+        default:
+          state = "已取消";
+      }
+      return state;
     }
   }
 }

@@ -9,6 +9,11 @@
       <el-button type="text" @click="newCompany">添加品牌</el-button>
     </div>
     <el-table :data="companies" border style="width: 100%">
+      <el-table-column label="Logo" width="150">
+          <template scope="scope">
+            <img :src="scope.row.logo.url" />
+          </template>
+        </el-table-column>
       <el-table-column prop="name" label="名称" ></el-table-column>
       <el-table-column prop="abbr" label="缩写"></el-table-column>
       <el-table-column prop="tel" label="联系人"></el-table-column>
@@ -46,7 +51,7 @@
                     <el-input v-model="company.address"></el-input>
                     </el-form-item>
                     <el-form-item label="公司 Logo">
-                      <el-input v-model="company.logo"></el-input>
+                      <input type="file" @change="uploadImage"></input>
                       </el-form-item>
                       </el-form> 
                       <span slot="footer" class="dialog-footer">
@@ -67,6 +72,7 @@ export default {
       dialogVisible: false,
       type: "new",
       edit_id: "",
+      image: "",
       company: {
         name: "",
         logo: "",
@@ -134,6 +140,9 @@ export default {
         if (this.company[u]) {
           form.append(u, this.company[u]);
         }
+        if (this.image) {
+          form.append("logo", this.image)
+        }
       }
       let self = this;
       if (type == "edit") {
@@ -162,6 +171,13 @@ export default {
           self.$message.error("网络加载失败");
         })
       }
+    },
+     uploadImage(e){
+      let files = e.target.files;
+      if(!files.length) {
+        return;
+      }
+      this.image = files[0];
     }
   }
 }
