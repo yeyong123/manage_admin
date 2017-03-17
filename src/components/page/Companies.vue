@@ -13,9 +13,10 @@
       <el-table-column prop="abbr" label="缩写"></el-table-column>
       <el-table-column prop="tel" label="联系人"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
-      <el-table-column label="Logo">
+      <el-table-column label="操作">
         <template scope="scope">
-          <img :src="scope.row.logo" />
+          <el-button @click="editCompany(scope.row.id)" type="text" size="small">编辑</el-button>
+                      <el-button @click="deleteCompany(scope.row.id, scope.$index)" type="danger" size="small">删除</el-button>
         </template>
         </el-table-column>
         </el-table>
@@ -93,23 +94,75 @@ export default {
     newCompany(){
       this.dialogVisible= true;
     },
-    companySubmit(){
-      let form = this.company;
+    editCompany(id){
       let self = this;
-      self.$http.post("companies.json", form).then(res => {
-        let data = res.body;
-        if (data.code > 200) {
-          self.$message.error(data.msg);
+      self.type = "edit";
+      self.edit_id = id;
+      self.dialogVisible = true;
+      self.companies.forEach(function(c, index){
+        if (c.id == id) {
+          self.company = c;
           return;
         }
-        self.companies.unshift(data.klass);
-        self.$message("添加完成");
-        self.dialogVisible = false;
-      }, res => {
-        self.$message.error("网络加载失败");
+      });
+    },
+    deleteCompany(id, index){
+      let self = this;
+      self.$confirm("删除之后不能回复, 确认删除?", "删除用户?", {
+        confirmButtonText: "确认删除",
+        cancelButtonText: "取消",
+        type: "danger"
+      }).then(() => {
+        self.$http.delete("companies/" + id + ".json").then(res => {
+          if (res.body.code === 200) {
+            self.$message({
+              type: 'success',
+              message: "删除成功"
+            });
+            self.companies.splice(index, 1);
+          } else {
+            self.$message.error("无效的操作");
+          }
+        }, res => {
+          self.$message.error("连接断开");
+        })
       })
+    },
+    companySubmit(type, edit_id){
+      let form = new FormData();
+      for(var u in this.company) {
+        if (this.company[u]) {
+          form.append(u, this.company[u]);
+        }
+      }
+      let self = this;
+      if (type == "edit") {
+        self.$http.put("companies/" + edit_id + ".json", form).then(res => {
+          let data = res.body;
+          if (data.code > 200) {
+            self.$message.error(data.msg);
+            return;
+          }
+          self.dialogVisible = false;
+          self.$message("编辑完成");
+        }, res => {
+          self.$message.error("编辑失败");
+        })
+      } else {
+        self.$http.post("companies.json", form).then(res => {
+          let data = res.body;
+          if (data.code > 200) {
+            self.$message.error(data.msg);
+            return;
+          }
+          self.companies.unshift(data.klass);
+          self.$message("添加完成");
+          self.dialogVisible = false;
+        }, res => {
+          self.$message.error("网络加载失败");
+        })
+      }
     }
-
   }
 }
 </script>

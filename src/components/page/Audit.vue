@@ -114,15 +114,14 @@ export default {
             this.$http.post("audits/" + id + "/audit.json?type=confirm", {}).then(res=>{
                 this.audits.splice(index, 1);
                 this.$message("审核成功");
-                console.log(res.body);
             }, res => {
                 this.$message.error("操作失败")
             })
         },
         reject_appoint(id, index) {
             this.$http.post("audits/" + id + "/audit.json?type=reject", {}).then(res => {
+                this.audits.splice(index, 1);
                 this.$message("拒绝了用户的请求");
-                console.log(res.body);
             },res => {
                 this.$message.error("操作失败")
             })
