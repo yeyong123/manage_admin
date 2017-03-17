@@ -42,7 +42,7 @@ export default {
     },
     deleteUser(){
       let self = this;
-      self.$confirm("删除之后不能回复, 确认删除?", "删除用户?", {
+      self.$confirm("删除之后不能恢复, 确认删除?", "删除用户?", {
         confirmButtonText: "确认删除",
         cancelButtonText: "取消",
         type: "danger"
