@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/dashboard'
         },
         {
             path: '/dashboard',
@@ -96,6 +96,15 @@ export default new Router({
                     path: '/upload',
                     component: resolve => require(['../components/page/Upload.vue'], resolve)       // Vue-Core-Image-Upload组件
                 },
+                 {
+                    path: '/encashs',
+                    component: resolve => require(['../components/page/Encashs.vue'], resolve)   // vue-echarts-v3组件
+                },
+ {
+                    path: '/encash_users',
+                    component: resolve => require(['../components/page/EncashUsers.vue'], resolve)   // vue-echarts-v3组件
+                },
+
                 {
                     path: '/basecharts',
                     component: resolve => require(['../components/page/BaseCharts.vue'], resolve)   // vue-echarts-v3组件
