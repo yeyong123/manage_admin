@@ -84,6 +84,19 @@
                                       <el-option label="品牌商" value=1></el-option>
                                       </el-select>
                                       </el-form-item>
+                                        <el-form-item label="权限">
+                                    <el-select v-model="user.user_type" placeholder="选择权限">
+                                      <el-option label="普通用户" value="user"></el-option>
+                                      <el-option label="技术" value="tech"></el-option>
+                                      <el-option label="财务" value="finance"></el-option>
+                                      <el-option label="客服" value="server"></el-option>
+                                      <el-option label="商务" value="business"></el-option>
+                                      <el-option label="出纳" value="cashier"></el-option>
+                                      <el-option label="超级用户" value="super"></el-option>
+                                      <el-option label="管理员" value="manager"></el-option>
+                                      </el-select>
+                                      </el-form-item>
+
                                       <el-form-item label="审核" prop="audit">
                                         <el-switch on-text="" off-text="" v-model="user.audit"></el-switch>
                                         </el-form-item>
