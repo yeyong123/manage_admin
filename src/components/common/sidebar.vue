@@ -25,6 +25,7 @@
                     <el-menu-item index="/mail">邮件/短信状态</el-menu-item>
                     <el-menu-item index="/libs">材料库</el-menu-item>
                     <el-menu-item index="/admins">管理员管理</el-menu-item>
+                    <el-menu-item index="/invoices">待开票</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2">
 
@@ -34,8 +35,8 @@
 
                       <el-submenu index="3">
 
-                      <template slot="title"><i class="el-icon-information"></i>收益设置</template>
-                      <el-menu-item index="/rate">设置利率收益</el-menu-item>
+                      <template slot="title"><i class="el-icon-information"></i>税费/收益设置</template>
+                      <el-menu-item index="/rate">设置税费/利率收益</el-menu-item>
                       <el-menu-item index="/profits">收益列表</el-menu-item>
                       </el-submenu>
 

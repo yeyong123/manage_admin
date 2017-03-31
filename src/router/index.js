@@ -96,13 +96,17 @@ export default new Router({
                     path: '/upload',
                     component: resolve => require(['../components/page/Upload.vue'], resolve)       // Vue-Core-Image-Upload组件
                 },
-                 {
+                {
                     path: '/encashs',
                     component: resolve => require(['../components/page/Encashs.vue'], resolve)   // vue-echarts-v3组件
                 },
- {
+                {
                     path: '/encash_users',
                     component: resolve => require(['../components/page/EncashUsers.vue'], resolve)   // vue-echarts-v3组件
+                },
+                {
+                    path: '/invoices',
+                    component: resolve => require(['../components/page/Invoices.vue'], resolve)   // vue-echarts-v3组件
                 },
 
                 {

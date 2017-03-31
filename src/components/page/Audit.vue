@@ -60,7 +60,7 @@
                                     <ul>
                                         <li> 姓名: <span>{{audit.real_name}}</span></li>
                                         <li>手机: <span>{{audit.tel}}</span></li>
-                                        <li>申请类型: <span>{{audit.role == 1 ? "品牌商" : "服务商"}}</span></li>
+                                        <li>申请类型: <span>{{audit.role === 1 ? "品牌商" : "服务商"}}</span></li>
                                     <li class="image-list" v-for="image in audit.pictures">
                                         <img :src="image.image.url" />
                                     </li>

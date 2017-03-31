@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column label="头像" width="150">
           <template scope="scope">
-            <img class="headimg" :src="scope.row.headimg.url" />
+            <img class="headimg" :src="scope.row.headimg.url" @error="defaultImg" />
           </template>
           </el-table-column>
           <el-table-column prop="real_name" label="姓名">
@@ -224,6 +224,9 @@ export default {
         return;
       }
       this.image = files[0];
+    },
+    defaultImg(row,col){
+      row.target.src = "https://images.chuanggj.com/chuang.png"
     }
   }
 }
