@@ -163,7 +163,7 @@ export default {
       for (var o in self.order) {
         form.append(o, self.order[o]);
       }
-      self.$http.put("orders/" + self.edit_id + ".json").then(res => {
+      self.$http.put("orders/" + self.edit_id + ".json", form).then(res => {
         let data = res.body;
         if (data.code > 200) {
           self.$message.error(data.msg);
