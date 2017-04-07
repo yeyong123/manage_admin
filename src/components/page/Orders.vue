@@ -25,7 +25,7 @@
           <el-table-column prop="city" label="所在城市"></el-table-column>
           <el-table-column prop="region" label="渠道"></el-table-column>
           <el-table-column prop="workflow_state" label="进度" :formatter="orderState"></el-table-column>
-          <el-table-column label="接单人">
+          <el-table-column label="安装人">
               <template scope="scope">
                 <a :link="{name: 'users', params: {id: scope.row.facilitator_id}}">{{scope.row.service_info.name}}</a>
               </template>
