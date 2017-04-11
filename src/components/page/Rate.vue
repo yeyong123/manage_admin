@@ -2,7 +2,13 @@
   <div>
     <div class="crumbs">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>品牌商列表</el-breadcrumb-item>
+         <el-breadcrumb-item><i class="el-icon-menu"></i> 
+           <router-link to="/dashboard">
+           主页
+           </router-link>
+           </el-breadcrumb-item>
+
+        <el-breadcrumb-item>设置利率</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
     <div>

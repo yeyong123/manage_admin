@@ -105,6 +105,40 @@ export default new Router({
                     component: resolve => require(['../components/page/EncashUsers.vue'], resolve)   // vue-echarts-v3组件
                 },
                 {
+                    path: '/pools',
+                    component: resolve => require(['../components/page/Pools.vue'], resolve)   // vue-echarts-v3组件
+                },
+                 {
+                    path: '/finances',
+                    component: resolve => require(['../components/page/Finances.vue'], resolve)   // vue-echarts-v3组件
+                },
+
+                {
+                    path: '/api_users',
+                    component: resolve => require(['../components/page/ApiUsers.vue'], resolve)   // vue-echarts-v3组件
+                },
+                {
+                    path: '/addons',
+                    component: resolve => require(['../components/page/Addons.vue'], resolve)   // vue-echarts-v3组件
+                },
+                {
+                    path: '/departments',
+                    component: resolve => require(['../components/page/Departments.vue'], resolve)   // vue-echarts-v3组件
+                },
+                {
+                    path: '/roles',
+                    component: resolve => require(['../components/page/Roles.vue'], resolve)   // vue-echarts-v3组件
+                },
+                {
+                    path: '/nodes',
+                    component: resolve => require(['../components/page/Nodes.vue'], resolve)   // vue-echarts-v3组件
+                },
+                {
+                    path: '/incidents',
+                    component: resolve => require(['../components/page/Incidents.vue'], resolve)   // vue-echarts-v3组件
+                },
+
+                {
                     path: '/invoices',
                     component: resolve => require(['../components/page/Invoices.vue'], resolve)   // vue-echarts-v3组件
                 },

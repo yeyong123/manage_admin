@@ -1,5 +1,5 @@
 #!/bin/bash
-#npm run build
+npm run build
 git add .
 git commit -m "$1$2"
 git push origin master

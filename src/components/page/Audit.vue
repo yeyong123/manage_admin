@@ -2,16 +2,22 @@
     <div>
         <div class="crumbs">
             <el-breadcrumb separator="/">
+              <el-breadcrumb-item><i class="el-icon-menu"></i> 
+           <router-link to="/dashboard">
+           主页
+           </router-link>
+           </el-breadcrumb-item>
+ 
                 <el-breadcrumb-item><i class="el-icon-setting"></i> 审核列表</el-breadcrumb-item>
                 </el-breadcrumb>
         </div>
         <el-table :data="audits" border style="width: 100%">
-            <el-table-column label="用户昵称" sortable width="180">
+            <el-table-column label="用户昵称" sortable>
                 <template scope="scope">
                     <div class="detail" @click="detail(scope.row.id)">{{scope.row.real_name}}</div>
                 </template>
                 </el-table-column>
-                <el-table-column prop="tel" label="电话" width="200">
+                <el-table-column prop="tel" label="电话">
                     </el-table-column>
                     <el-table-column prop="role" label="申请角色" sortable width="150">
                         <template scope="scope">

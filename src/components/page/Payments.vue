@@ -2,6 +2,12 @@
   <div>
     <div class="crumbs">
       <el-breadcrumb separator="/">
+        <el-breadcrumb-item><i class="el-icon-menu"></i> 
+           <router-link to="/dashboard">
+           主页
+           </router-link>
+           </el-breadcrumb-item>
+
         <el-breadcrumb-item>财务交易</el-breadcrumb-item>
         </el-breadcrumb>
     </div>

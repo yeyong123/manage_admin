@@ -1,18 +1,131 @@
 <template>
-    <div>
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-date"></i>控制面板</el-breadcrumb-item>
-                <el-breadcrumb-item>图表</el-breadcrumb-item>
-                </el-breadcrumb>
-        </div>
-        <div class="echarts">
+  <div>
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <router-link to="/audit">
+          <div class="grid-content bg-purple"><span>审核列表</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/users">
+          <div class="grid-content bg-purple"><span>用户列表</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/orders">
+          <div class="grid-content bg-purple"><span>订单列表</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/payments">
+          <div class="grid-content bg-purple"><span>财务报表</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/companies">
+          <div class="grid-content bg-purple"><span>品牌管理</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/encashs">
+          <div class="grid-content bg-purple"><span>提现</span></div>
+        </router-link>
+        </el-col>
+
+ <el-col :span="6">
+        <router-link to="/invoices">
+          <div class="grid-content bg-purple"><span>开具发票</span></div>
+        </router-link>
+        </el-col>
+
+ <el-col :span="6">
+        <router-link to="/admins">
+          <div class="grid-content bg-purple"><span>管理员</span></div>
+        </router-link>
+        </el-col>
+
+         <el-col :span="6">
+        <router-link to="/mail">
+          <div class="grid-content bg-purple"><span>邮件/短信状态</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/libs">
+          <div class="grid-content bg-purple"><span>材料库</span></div>
+        </router-link>
+        </el-col>
+ <el-col :span="6">
+        <router-link to="/rate">
+          <div class="grid-content bg-purple"><span>设置利率</span></div>
+        </router-link>
+        </el-col>
+
+         <el-col :span="6">
+        <router-link to="/profits">
+          <div class="grid-content bg-purple"><span>收益列表</span></div>
+        </router-link>
+        </el-col>
+
+          <el-col :span="6">
+        <router-link to="/pools">
+          <div class="grid-content bg-purple"><span>冻结/封存资金库</span></div>
+        </router-link>
+        </el-col>
+
+           <el-col :span="6">
+        <router-link to="/api_users">
+          <div class="grid-content bg-purple"><span>API用户</span></div>
+        </router-link>
+        </el-col>
+
+          <el-col :span="6">
+        <router-link to="/addons">
+          <div class="grid-content bg-purple"><span>插件</span></div>
+        </router-link>
+        </el-col>
+
+  <el-col :span="6">
+        <router-link to="/departments">
+          <div class="grid-content bg-purple"><span>部门</span></div>
+        </router-link>
+        </el-col>
+
+          <el-col :span="6">
+        <router-link to="/roles">
+          <div class="grid-content bg-purple"><span>角色</span></div>
+        </router-link>
+        </el-col>
+
+  <el-col :span="6">
+        <router-link to="/nodes">
+          <div class="grid-content bg-purple"><span>节点</span></div>
+        </router-link>
+        </el-col>
+  <el-col :span="6">
+        <router-link to="/incidents">
+          <div class="grid-content bg-purple"><span>订单附加费</span></div>
+        </router-link>
+        </el-col>
+
+
+          <el-col :span="6">
+        <router-link to="/finances">
+          <div class="grid-content bg-purple"><span>平台扣除的费用</span></div>
+          </router-link>
+          </el-col>
+
+          </el-row>
+          <hr>
+          <p></p>
+          <div style="margin: auto; width: 70%;padding-top: 15px;">
+          <div class="echarts">
             <IEcharts :option="bar" ></IEcharts>
-        </div>
-        <div class="echarts">
+          </div>
+          <div class="echarts">
             <IEcharts :option="line" ></IEcharts>
-        </div>
-    </div>
+          </div>
+          </div>
+  </div>
 </template>
 
 
@@ -154,5 +267,37 @@ export default {
     width: 500px;
     height: 400px;
 }
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 45px;
+    text-align: center;
+    padding-top: 22px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0a1509;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
 </style>
 
