@@ -115,8 +115,7 @@
           </el-col>
 
           </el-row>
-          <hr>
-          <p></p>
+          <!--
           <div style="margin: auto; width: 70%;padding-top: 15px;">
           <div class="echarts">
             <IEcharts :option="bar" ></IEcharts>
@@ -125,6 +124,7 @@
             <IEcharts :option="line" ></IEcharts>
           </div>
           </div>
+          -->
   </div>
 </template>
 
@@ -238,25 +238,25 @@ export default {
         }
     }),
     beforeMount() {
-        let self = this;
-        self.$http.get("last_days_chart.json").then(res => {
-            self.line.xAxis.data = res.body.date;
-            self.line.series = [{
-                name: "订单量",
-                type: "line",
-                data: res.body.count
-            }]
-        }, res => {
-            self.$message.error("加载失败")
-        });
-        self.$http.get("asynis_models.json").then(res => {
-            self.bar.xAxis.data = ["用户数", "订单数", "品牌商", "服务商", "交易量"];
-            self.bar.series = [{
-                name: "概况",
-                type: "bar",
-                data: [res.body.users, res.body.orders, res.body.company_users, res.body.server_users, res.body.payments]
-            }]
-        })
+        //let self = this;
+        //self.$http.get("last_days_chart.json").then(res => {
+        //    self.line.xAxis.data = res.body.date;
+        //    self.line.series = [{
+        //        name: "订单量",
+        //        type: "line",
+        //        data: res.body.count
+        //    }]
+        //}, res => {
+        //    self.$message.error("加载失败")
+        //});
+        //self.$http.get("asynis_models.json").then(res => {
+        //    self.bar.xAxis.data = ["用户数", "订单数", "品牌商", "服务商", "交易量"];
+        //    self.bar.series = [{
+        //        name: "概况",
+        //        type: "bar",
+        //        data: [res.body.users, res.body.orders, res.body.company_users, res.body.server_users, res.body.payments]
+        //    }]
+        //})
     }
 }
 </script>
