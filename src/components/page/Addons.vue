@@ -111,6 +111,7 @@ export default {
       let self = this;
       self.type = "edit";
       self.dialogVisible = true;
+      self.images = [];
       self.addons.forEach(function(e, i){
         if (e.id == id) {
           self.addon = e;
