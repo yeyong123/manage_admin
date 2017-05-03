@@ -43,9 +43,14 @@
                     if (response.body.code > 200) {
                         alert(response.body.msg)   
                     } else {
+
                         localStorage.setItem("5mutian_token", response.body.token);
                         localStorage.setItem("user", JSON.stringify(response.body.user));
+                      if (response.body.user.role == "finance") {
+                        self.$router.push("/pay");
+                      } else {
                         self.$router.push("/dashboard");
+                      }
                     }
                 }, response => {
                   self.$alert("啊哈!加载失败了, 等下再试试吧! Maybe可行,我也不确定 :)", "出了什么问题了...", {

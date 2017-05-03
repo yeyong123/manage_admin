@@ -112,7 +112,10 @@ export default new Router({
                     path: '/finances',
                     component: resolve => require(['../components/page/Finances.vue'], resolve)   // vue-echarts-v3组件
                 },
-
+                {
+                    path: '/pay',
+                    component: resolve => require(['../components/page/Pay.vue'], resolve) 
+                },
                 {
                     path: '/api_users',
                     component: resolve => require(['../components/page/ApiUsers.vue'], resolve)   // vue-echarts-v3组件

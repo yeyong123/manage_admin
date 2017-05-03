@@ -2,10 +2,14 @@
   <div>
     <div class="crumbs">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <img class="user-logo" :src="user.headimg.url">
-          {{user.real_name}}</el-breadcrumb-item>
-        </el-breadcrumb>
+        <el-breadcrumb-item><i class="el-icon-menu"></i> 
+          <router-link to="/users">
+            用户列表
+            </router-link>
+            </el-breadcrumb-item>
+            <el-breadcrumb-item>{{user.real_name}}</el-breadcrumb-item>
+
+            </el-breadcrumb>
     </div>
     <ul>
       <li>手机: {{user.tel}}</li>
@@ -66,8 +70,6 @@ window.history.back();
 }
 </script>
 <style scoped>
-.crumbs {
-}
 .user-logo{
   width: 100px;
   height: 100px;
