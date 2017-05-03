@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-      <div class="logo"><a href="/">后台管理系统</a></div>
+      <div v-if="username != 'finance'" class="logo"><a href="/">后台管理系统</a></div>
         <div class="user-info">
             <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
