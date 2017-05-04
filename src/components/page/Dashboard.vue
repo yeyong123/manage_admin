@@ -257,7 +257,13 @@ export default {
         //        data: [res.body.users, res.body.orders, res.body.company_users, res.body.server_users, res.body.payments]
         //    }]
         //})
+    },
+  created() {
+    let user = JSON.parse(localStorage.getItem('user'))
+    if (user.role == 'finance') {
+      this.$router.push("/pay")
     }
+  }
 }
 </script>
 
