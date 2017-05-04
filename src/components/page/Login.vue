@@ -47,7 +47,7 @@
                         localStorage.setItem("5mutian_token", response.body.token);
                         localStorage.setItem("user", JSON.stringify(response.body.user));
                       if (response.body.user.role == "finance") {
-                        self.$router.push("/pay");
+                        self.$router.push("/transaction");
                       } else {
                         self.$router.push("/dashboard");
                       }

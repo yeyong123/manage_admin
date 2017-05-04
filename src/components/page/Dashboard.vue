@@ -27,7 +27,7 @@
         </router-link>
         </el-col>
  <el-col :span="6">
-        <router-link to="/encashs">
+        <router-link to="/transaction">
           <div class="grid-content bg-purple"><span>提现</span></div>
         </router-link>
         </el-col>
@@ -261,7 +261,7 @@ export default {
   created() {
     let user = JSON.parse(localStorage.getItem('user'))
     if (user.role == 'finance') {
-      this.$router.push("/pay")
+      this.$router.push("/transaction")
     }
   }
 }

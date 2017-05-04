@@ -108,6 +108,11 @@ export default new Router({
                     path: '/pools',
                     component: resolve => require(['../components/page/Pools.vue'], resolve)   // vue-echarts-v3组件
                 },
+
+                {
+                    path: "/transaction",
+                    component: resolve => require(['../components/page/Temp.vue'], resolve)
+                },
                  {
                     path: '/finances',
                     component: resolve => require(['../components/page/Finances.vue'], resolve)   // vue-echarts-v3组件
