@@ -17,7 +17,7 @@
         </router-link>
         </el-col>
  <el-col :span="6">
-        <router-link to="/payments">
+        <router-link to="/reports">
           <div class="grid-content bg-purple"><span>财务报表</span></div>
         </router-link>
         </el-col>

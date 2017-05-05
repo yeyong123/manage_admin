@@ -44,6 +44,10 @@ export default new Router({
                     component: resolve => require(["../components/page/Payments.vue"], resolve)
                 },
                 {
+                    path: "/reports",
+                    component: resolve => require(["../components/page/Temp2.vue"], resolve)
+                },
+                {
                     path: "/companies",
                     component: resolve => require(["../components/page/Companies.vue"], resolve)
                 },
