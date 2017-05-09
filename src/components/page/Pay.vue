@@ -15,12 +15,12 @@
       </span>
     </div>
     <el-table :data="recipients" border>
-      <el-table-column label="生成时间" width="300">
+      <el-table-column label="生成时间">
         <template scope="scope">
           {{scope.row.created_at * 1000 | date("%Y-%m-%d %T")}}
         </template>
         </el-table-column>
-        <el-table-column label="金额" width="250">
+        <el-table-column label="金额">
           <template scope="scope">
             {{(scope.row.amount / 100.00).toFixed(2)}}
           </template>
