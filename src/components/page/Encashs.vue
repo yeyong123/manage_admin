@@ -51,8 +51,16 @@
               <el-dialog title="提现的用户" v-model="dialogVisible" size="large">
                 <el-table :data="users" border style="width: 100%">
                   <el-table-column prop="name" label="姓名"></el-table-column>
-                  <el-table-column prop="open_bank" label="开户行"></el-table-column>
-                  <el-table-column prop="open_bank_code" label="支行"></el-table-column>
+                    <el-table-column label="开户行">
+                        <template scope="scope">
+                          {{scope.row.open_bank}}
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="支行">
+                          <template scope="scope">
+                            {{scope.row.open_bank_code}}
+                          </template>
+                        </el-table-column>
                   <el-table-column prop="account" label="提现的账户"></el-table-column>
                   <el-table-column label="提现金额">
                     <template scope="scope">

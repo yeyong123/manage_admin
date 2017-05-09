@@ -25,7 +25,6 @@
             {{(scope.row.amount / 100.00).toFixed(2)}}
           </template>
           </el-table-column>
-
           <el-table-column prop="open_bank" label="开户行"></el-table-column>
           <el-table-column prop="open_bank_code" label="支行"></el-table-column>
           <el-table-column label="提现的用户">
