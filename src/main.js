@@ -12,7 +12,7 @@ Vue.use(ElementUI);
 Vue.use(VueResoure);
 Vue.use(vueFilter)
 Vue.http.options.root = "https://api.chuanggj.com/admin";
-//Vue.http.options.root = "http://192.168.0.164:8080/admin";
+//Vue.http.options.root = "http://localhost:3000/admin";
 Vue.http.options.emulateJSON = true;
 Vue.http.options.emulateHTTP = true;
 Vue.http.interceptors.push(function(request, next){

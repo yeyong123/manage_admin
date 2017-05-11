@@ -12,8 +12,57 @@
         </el-breadcrumb>
     </div>
     <div class="user-header">
-      <el-input class="search" icon="search" v-model="q" :on-icon-click="searchQuery"></el-input>
+      <form>
+        <el-input class="search" v-model="q" placeholder="订单号或手机号"></el-input>
+         <el-date-picker
+      v-model="time"
+      type="datetimerange"
+      :picker-options="pickerOptions2"
+      placeholder="选择时间范围"
+      format="yyyy-MM-dd HH:mm:ss"
+     range-separator="/" 
+      align="right">
+    </el-date-picker>
+        <el-select
+         v-model="facilitator_id"
+         filterable
+         remote
+         placeholder="安装师傅"
+         :remote-method="remoteUser"
+         :loading="loading">
+          <el-option
+         v-for="item in service_users"
+         :key="item.real_name"
+         :label="item.real_name"
+         :value="item.id">
+            </el-option>
+            </el-select>
+             <el-select
+         v-model="customer_service_id"
+         filterable
+         remote
+         placeholder="测量师傅"
+         :remote-method="remoteUser2"
+         :loading="loading">
+          <el-option
+         v-for="item in measured_users"
+         :key="item.real_name"
+         :label="item.real_name"
+         :value="item.id">
+            </el-option>
+            </el-select>
+            <el-select v-model="workflow_state" placeholder="选择状态">
+    <el-option
+      v-for="item in states"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
+ <el-button type="primary" @click="searchQuery">搜索</el-button>
+
+      </form>
     </div>
+    <p>共: {{page.total_count}}</p>
     <el-table :data="orders" border>
       <el-table-column label="订单号">
         <template scope="scope">
@@ -117,8 +166,9 @@ export default {
   data() {
     return {
       orders: [],
-      page: {},
+      page: {next_page: 0, total_count: 0, current_page: 0},
       order: {},
+      workflow_state: "",
       edit_id: "",
       dialogVisible: false,
       q: "",
@@ -126,7 +176,52 @@ export default {
       company_id: "",
       company_list: [],
       start_time: "",
-      end_time: ""
+      end_time: "",
+      current_action: "search",
+      facilitator_id: "",
+      customer_service_id: '',
+      service_users: [],
+      measured_users: [],
+      loading: false,
+      states: [
+        {value: null, label: "选择状态"},
+        {value: "new", label: "新订单"},
+        {value: "appointed_measurement", label: "预约测量"},
+        {value: "measured", label: "已测量"},
+        {value: "appointed_installation", label: "预约安装"},
+        {value: "installed", label: "已安装"},
+        {value: "confirm_installled", label: "确认安装"},
+        {value: "completed", label: "已完成"},
+        {value: "canceled", label: "已取消"},
+      ],
+      pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+      time: [],
     }
   },
   created() {
@@ -135,22 +230,52 @@ export default {
   methods: {
     fetchResource(page){
       let self = this;
-      self.$http.get("orders.json?page=" + page + "&q=" + this.q).then(res => {
+      self.current_action = "index"
+      self.$http.get("orders.json?page=" + page).then(res => {
         self.orders = res.body.klass;
         self.page = res.body.page;
       }, res => {
         self.$message.error("加载失败");
       })
     },
-    handlePage(val){
-      this.fetchResource(val);
-    },
-    rowClick(val){
-      this.$router.push("/orders/" + val);
-    },
-    searchQuery(){
-      this.fetchResource(1)
-    },
+      handlePage(val){
+        if (this.current_action === 'search') {
+          let args = {
+            keyword: this.q,
+            facilitator_id: this.facilitator_id,
+            customer_service_id: this.customer_service_id,
+            workflow_state: this.workflow_state,
+            page: page.current_page,
+            time: this.conver_time(this.time)
+          }
+          this.fetchSearch(args)
+        } else {
+          this.fetchResource(val);
+        }
+      },
+      rowClick(val){
+        this.$router.push("/orders/" + val);
+      },
+      searchQuery(){
+        this.current_action = "search"
+        let args = {
+          keyword: this.q,
+          facilitator_id: this.facilitator_id,
+          customer_service_id: this.customer_service_id,
+          workflow_state: this.workflow_state,
+          time: this.conver_time(this.time)
+        }
+        this.fetchSearch(args)
+      },
+      fetchSearch(args) {
+        this.$http.post("orders/search_orders", args).then(res => {
+          this.orders = res.body.klass;
+          this.page = res.body.page;
+        })
+      },
+      conver_time(time) {
+        return this.time.map(item => new Date(item).getTime() / 1000)
+      },
     edit(id){
       let self = this;
       self.orders.forEach(function(order, index){
@@ -165,7 +290,7 @@ export default {
     editSubmit(id){
       let form = new FormData();
       let self = this;
-      for (var o in self.order) {
+      for (var o in self.orde) {
         form.append(o, self.order[o]);
       }
       self.$http.put("orders/" + self.edit_id + ".json", form).then(res => {
@@ -180,9 +305,41 @@ export default {
         self.$message.error("加载失败");
       })
     },
+       remoteUser2(query) {
+      if(query !== '') {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+          this.$http.get("orders/users?keyword=" + query).then(res => {
+            this.measured_users = res.body.users;
+          });
+        }, 500);
+      } else {
+        this.customer_service_id= "";
+        this.measured_users = [];
+      }
+    },
+
+    remoteUser(query) {
+      if(query !== '') {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+          this.$http.get("orders/users?keyword=" + query).then(res => {
+            this.service_users = res.body.users;
+          });
+        }, 500);
+      } else {
+        this.facilitator_id = "";
+        this.service_users = [];
+      }
+    },
     orderState(row, col){
       let state = "";
       switch(row.workflow_state){
+        case "new":
+          state = "新订单"
+          break;
         case "installed":
           state = "已安装";
           break;
@@ -214,7 +371,6 @@ export default {
 <style scoped>
 .search {
   width: 200px;
-  float: right;
   margin-bottom: 15px;
 }
 
