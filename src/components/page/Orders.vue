@@ -133,7 +133,9 @@
                 <el-form-item label="品牌商">
                     <el-input v-model="order.company_id"></el-input>
                 </el-form-item>
-
+                <el-form-item label="发单人">
+                    <el-input v-model="order.customer_id"></el-input>
+                </el-form-item>
                 <el-form-item label="测量人">
                     <el-input v-model="order.customer_service_id"></el-input>
                 </el-form-item>
@@ -146,6 +148,10 @@
                 <el-form-item label="测量费">
                     <el-input v-model="order.measure_amount"></el-input>
                 </el-form-item>
+                <el-form-item label="是否品牌商单子">
+                    <el-input v-model="order.is_company"></el-input>
+                </el-form-item>
+
 
                 <el-form-item label="预估总价">
                     <el-input v-model="order.total"></el-input>
@@ -291,7 +297,7 @@
                 editSubmit(id){
                     let form = new FormData();
                     let self = this;
-                    for (var o in self.orde) {
+                    for (var o in self.order) {
                         form.append(o, self.order[o]);
                     }
                     self.$http.put("orders/" + self.edit_id + ".json", form).then(res => {
