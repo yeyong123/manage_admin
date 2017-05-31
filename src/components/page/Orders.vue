@@ -151,8 +151,6 @@
                 <el-form-item label="是否品牌商单子">
                     <el-input v-model="order.is_company"></el-input>
                 </el-form-item>
-
-
                 <el-form-item label="预估总价">
                     <el-input v-model="order.total"></el-input>
                 </el-form-item>
