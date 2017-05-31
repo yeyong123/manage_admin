@@ -105,7 +105,7 @@ export default new Router({
                     component: resolve => require(['../components/page/Encashs.vue'], resolve)   // vue-echarts-v3组件
                 },
                 {
-                    path: '/encash_users',
+                    path: '/encashs/:id',
                     component: resolve => require(['../components/page/EncashUsers.vue'], resolve)   // vue-echarts-v3组件
                 },
                 {
