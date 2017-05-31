@@ -11,7 +11,7 @@
         </el-breadcrumb>
     </div>
     <div class="user-header">
-      <el-button type="text" @click="addUser">创建用户</el-button>
+      <el-button type="text" @click="addLib">添加材料</el-button>
       <el-input class="search" icon="search" v-model="text_q" :on-icon-click="searchQuery"></el-input>
     </div>
     <el-table :data="users" border style="width: 100%">
