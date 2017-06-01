@@ -17,7 +17,6 @@
                 <el-date-picker
                     v-model="time"
                     type="datetimerange"
-                    :picker-options="pickerOptions2"
                     placeholder="选择时间范围"
                     format="yyyy-MM-dd HH:mm:ss"
                     range-separator="/" 
@@ -109,7 +108,7 @@
                         trade_type: this.trade_type,
                         trade_status: this.trade_status,
                         q: this.q,
-                        time: this.time,
+                        time: this.time.map(item => new Date(item).getTime() / 1000),
                         user_id: this.user,
                         page: val
                     }
@@ -120,7 +119,6 @@
                     }
                 },
                 search_ps(args) {
-
                     this.current_action = 'search'
                     this.$http.get("payments/search_payments", {params: args}).then(res =>{
                         this.payments = res.body.klass;
@@ -132,7 +130,7 @@
                         trade_type: this.trade_type,
                         trade_status: this.trade_status,
                         q: this.q,
-                        time: this.time,
+                        time: this.time.map(item => new Date(item).getTime() / 1000),
                         user_id: this.user,
                     }
                     this.search_ps(args)
