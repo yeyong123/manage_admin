@@ -45,7 +45,12 @@
                     <div slot="header" class="clearfix">
                         <span v-if="order.workflow_state != 'new'" class="prev_process process">上一个进度:{{prev_state | orderState}}</span>
                         <span class="current_process process">当前进度: {{order.workflow_state | orderState}}</span>
-                        <span v-if="next_state != 'canceled'" class="next_process process">下一个进度:{{next_state | orderState}}</span>
+                        <template v-if="order.is_company">
+                            <span v-if="next_state != 'canceled'" class="next_process process">下一个进度:{{next_state | orderState}}</span>
+                        </template>
+                        <template v-else-if="order.workflow_state == 'installed'">
+                            <span v-if="next_state != 'canceled'" class="next_process process">下一个进度:已完成</span>
+                        </template>
                     </div>
                     <el-col :span="12">安装工: <span>{{server_name}}</span></el-col>
                     <el-col :span="12">安装工ID: <span>{{order.facilitator_id}}</span></el-col>
@@ -68,7 +73,7 @@
                     <div slot="header" class="clearfix">
                         <span>审核流程</span>
                     </div>
-                    <template v-if="is_appoint">
+                    <template v-if="is_appoint && !order.brand_confirm">
                         <template>
                             <p>当前所在的节点: 第{{order.level}}级,  共有{{node.max_node}}级</p>
                             <hr />
@@ -217,7 +222,6 @@
                 rangeState(val) {
                     let l_n = this.states.length;
                     let current_n = this.states.indexOf(val);
-                    console.log(l_n, current_n, val, this.states);
                     if (current_n == 0) {
                         this.prev_state = "new";
                         this.next_state = this.states[current_n + 1];
@@ -244,8 +248,8 @@
     }
     .box-card .process {
         float: none;
-        width: 100%;
-        padding: 5px 15px;
+        width: 90%;
+        padding: 5px 15px 5px 0px;
         margin-right:20px;
     }
     .prev_process {
