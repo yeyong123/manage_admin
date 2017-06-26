@@ -379,8 +379,11 @@
                         case "appointed_measurement":
                             state = "预约测量";
                             break;
+                        case "confirm_installled"
+                            state = "管理员确认";
+                            break;
                         default:
-                            state = "已取消";
+                            state = "--";
                     }
                     return state;
                 }
