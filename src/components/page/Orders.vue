@@ -295,9 +295,13 @@
                 editSubmit(id){
                     let form = new FormData();
                     let self = this;
-                    for (var o in self.order) {
-                        form.append(o, self.order[o]);
+                    for (var o in this.order) {
+                        if (this.order[o]) {
+                            form.append(o, this.order[o]);
+                        }
                     }
+
+                    console.log(form, this.order)
                     self.$http.put("orders/" + self.edit_id + ".json", form).then(res => {
                         let data = res.body;
                         if (data.code > 200) {
@@ -379,7 +383,7 @@
                         case "appointed_measurement":
                             state = "预约测量";
                             break;
-                        case "confirm_installled"
+                        case "confirm_installled":
                             state = "管理员确认";
                             break;
                         default:

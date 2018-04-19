@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2>提现到{{type | conver}}用户</h2>
+        <span @click="export_excel()" class="el-button">导出</span>
 <el-button @click="rowClick()" type="text" size="small">返回</el-button>
 
         <div class='table'>
@@ -83,6 +84,16 @@
                 }, res => {
                     this.$alert("网络连接失败");
                 })
+            },
+
+            export_excel(){
+                this.$http.get("encashments/" + this.$route.params.id + "/fetch_users.xlsx?limit=100",{responseType: 'blob', content_type: "application/xlsx"}).then(res => {
+                    window.location.href = res.url
+                
+                }, res => {
+                    this.$alert("网络连接失败");
+                })
+
             },
                 rowClick(){
                     this.$router.push('/encashs/?type=' + this.type);
