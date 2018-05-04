@@ -12,16 +12,17 @@
             </el-breadcrumb>
         </div>
         <div class="tag-ele">
+             <span @click="fetch_type('bank')">
+                <el-tag type="primary" class="tag" :class="type === 'bank' ? type : null">提现到银行卡</el-tag>
+            </span>
+
             <span @click="fetch_type('alipay')">
                 <el-tag class="tag" :class="type === 'alipay' ? type : null">提现到支付宝</el-tag>
             </span>
             <span @click="fetch_type('wx_pub')">
                 <el-tag type="gray" class="tag" :class="type === 'wx_pub' ? type : null">提现到微信公众号</el-tag>
             </span>
-            <span @click="fetch_type('bank')">
-                <el-tag type="primary" class="tag" :class="type === 'bank' ? type : null">提现到银行卡</el-tag>
-            </span>
-        </div>
+                   </div>
         <hr >
         <el-table :data="encashs" border>
             <el-table-column label="生成时间" width="300">
@@ -49,6 +50,12 @@
                 </el-table-column>
             </template>
         </el-table>
+        <el-row :gutter="20">
+            <el-col :span="12" offset="6">
+                <el-button v-if="encashs[0].amount > 0" size="medium" type="info" icon="document" style="width: 100%;margin-top: 50px; height: 80px" @click="export_excel">导出提现列表</el-button>
+                <p v-else style="width: 100%;margin-top: 50px">今天没有提现</p>
+            </el-col>
+        </el-row>
 
         <el-dialog title="提现的用户" v-model="dialogVisible" size="large">
             <el-table :data="users" border style="width: 100%">
@@ -94,12 +101,12 @@
                 encashs: [],
                 dialogVisible: false,
                 users: [],
-                type: "alipay",
+                type: "bank",
                 en_index: 0
             }
         },
         created(){
-            this.type = this.$route.query.type ? this.$route.query.type : "alipay"
+            this.type = this.$route.query.type ? this.$route.query.type : "bank"
             this.fetch_soruce(this.type)
         },
         filters: {
@@ -130,6 +137,16 @@
                     this.$alert("加载失败")
                 })
             },
+                 export_excel(){
+                this.$http.get("encashments/" + this.encashs[0].id + "/fetch_users.xlsx?limit=100",{responseType: 'blob', content_type: "application/xlsx"}).then(res => {
+                    window.location.href = res.url
+                
+                }, res => {
+                    this.$alert("网络连接失败");
+                })
+
+            },
+
                 show_users(id){
                     this.dialogVisible = true;
                     this.$http.get("encashments/" + id + "/fetch_users.json").then(res => {

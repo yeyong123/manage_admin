@@ -1,5 +1,5 @@
 <template>
-  <el-button type="primary" class="laowu" size="large" @click="to_pay">上海蓉申建筑劳务有限公司</el-button>
+  <el-button type="primary" class="laowu" size="large" @click="to_pay">上海暨华劳务服务有限公司</el-button>
 </template>
 
 <script>
